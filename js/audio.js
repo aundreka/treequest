@@ -124,6 +124,24 @@
     if (document.body) ensureRotateOverlay();
     else document.addEventListener("DOMContentLoaded", ensureRotateOverlay);
 
+    // iOS Safari sometimes keeps the previous orientation's zoom level after a rotate.
+    // Force a viewport reset + scroll-to-top so the layout reflows cleanly.
+    function refreshViewport() {
+        window.scrollTo(0, 0);
+        const vp = document.querySelector('meta[name="viewport"]');
+        if (vp) {
+            const original = vp.getAttribute("content");
+            vp.setAttribute("content", original + ", height=" + window.innerHeight);
+            setTimeout(() => vp.setAttribute("content", original), 60);
+        }
+        document.documentElement.style.height = window.innerHeight + "px";
+        setTimeout(() => { document.documentElement.style.height = ""; }, 80);
+    }
+    window.addEventListener("orientationchange", () => {
+        setTimeout(refreshViewport, 50);
+        setTimeout(refreshViewport, 300);
+    });
+
     function queueUnlock() {
         if (unlocked) return;
         const handler = () => {
