@@ -169,6 +169,86 @@ body.game-page #footer-container {
     body.game-page .hud-chip { min-width: 0; font-size: 8px; padding: 5px 8px; }
 }
 
+/* Landscape phones / short wide viewports: compact game header */
+@media (max-height: 540px) and (min-aspect-ratio: 5/4) {
+    body.game-page .game-shell {
+        padding: 5px;
+        gap: 4px;
+    }
+    body.game-page .game-header {
+        padding: 4px 8px;
+        gap: 6px;
+    }
+    body.game-page .game-header__text {
+        text-align: center;
+    }
+    body.game-page .game-header__text .eyebrow {
+        font-size: 7px;
+        margin: 0 0 2px;
+    }
+    body.game-page .game-header__text h1 {
+        font-size: 12px;
+        line-height: 1.1;
+        margin: 0;
+    }
+    body.game-page .icon-btn {
+        width: 32px;
+        height: 32px;
+    }
+    body.game-page .icon-btn .icon-glyph {
+        width: 18px;
+        height: 18px;
+    }
+    body.game-page .game-header__hud {
+        flex-direction: row;
+        gap: 4px;
+    }
+    body.game-page .hud-chip {
+        font-size: 7px;
+        padding: 4px 6px;
+        min-width: 70px;
+    }
+    body.game-page .game-stage {
+        padding: 6px;
+        gap: 4px;
+    }
+    body.game-page .game-instructions {
+        font-size: 7px;
+        padding: 4px 8px;
+    }
+    body.game-page .game-feedback {
+        font-size: 7px;
+        padding: 4px 8px;
+    }
+    body.game-page .game-stage__canvas .traversal-badge {
+        font-size: 10px;
+        padding: 5px 10px;
+        top: 4px;
+    }
+    body.game-page .speedrun-hud {
+        gap: 6px;
+    }
+    body.game-page .tile-bank {
+        max-height: 24vh;
+        padding: 4px;
+    }
+}
+
+/* Ultra-short landscape */
+@media (max-height: 400px) and (min-aspect-ratio: 5/4) {
+    body.game-page .game-header__text .eyebrow { display: none; }
+    body.game-page .game-header__text h1 { font-size: 10px; }
+    body.game-page .icon-btn { width: 28px; height: 28px; }
+    body.game-page .icon-btn .icon-glyph { width: 16px; height: 16px; }
+    body.game-page .hud-chip { font-size: 6px; padding: 3px 5px; min-width: 60px; }
+    body.game-page .game-instructions { display: none; }
+    body.game-page .game-stage__canvas .traversal-badge {
+        font-size: 8px;
+        padding: 4px 7px;
+        top: 3px;
+    }
+}
+
 .game-header {
     display: grid;
     grid-template-columns: auto 1fr auto;

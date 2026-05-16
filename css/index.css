@@ -228,13 +228,9 @@ body.root-page {
 }
 
 /* Short viewports: trim non-essentials */
-@media (max-height: 600px) {
+@media (max-height: 720px) {
     .title-mascot { display: none; }
     .title-credits { display: none; }
-}
-
-@media (max-height: 480px) {
-    .title-logo { max-height: 48px; }
 }
 
 @media (max-width: 520px) {
@@ -246,20 +242,20 @@ body.root-page {
     .mode-tile__label { font-size: 9px; letter-spacing: 0.5px; }
 }
 
-/* Landscape phones / very short viewports: switch modes grid to 4x1 and shrink */
-@media (max-height: 540px) {
+/* Wide-and-short (landscape phones, short windows): 4x1 mode tiles + horizontal player field */
+@media (max-height: 700px) and (min-aspect-ratio: 5/4) {
     .title-screen {
         padding: 6px clamp(8px, 2vw, 18px);
         gap: 5px;
     }
     .title-logo {
-        max-height: 32px;
+        max-height: clamp(28px, 8vh, 56px);
     }
     .title-mascot {
         display: none;
     }
     .title-player {
-        width: min(420px, 100%);
+        width: min(500px, 90%);
         gap: 8px;
     }
     .title-player__field {
@@ -288,19 +284,19 @@ body.root-page {
         width: 100%;
     }
     .mode-tile {
-        padding: 6px;
-        gap: 4px;
+        padding: clamp(4px, 1vh, 10px);
+        gap: clamp(2px, 0.8vh, 8px);
         box-shadow:
             inset 2px 2px 0 var(--c-paper-hi),
             inset -2px -2px 0 var(--c-paper-lo),
             3px 3px 0 var(--c-ink);
     }
     .mode-tile__icon {
-        width: clamp(18px, 5vh, 32px);
-        height: clamp(18px, 5vh, 32px);
+        width: clamp(16px, 6vh, 40px);
+        height: clamp(16px, 6vh, 40px);
     }
     .mode-tile__label {
-        font-size: clamp(7px, 1.6vh, 10px);
+        font-size: clamp(7px, 1.8vh, 11px);
         letter-spacing: 0;
     }
     .title-extras {
@@ -309,32 +305,29 @@ body.root-page {
     .title-extras .nes-btn,
     .how-to-play-link,
     #leaderboard-btn {
-        font-size: 8px;
-        padding: 5px 10px;
-    }
-    .title-credits {
-        display: none;
+        font-size: clamp(7px, 1.4vh, 10px);
+        padding: clamp(4px, 0.8vh, 8px) clamp(10px, 2vw, 16px);
     }
 }
 
-/* Ultra-short (under ~400 px height) — trim further */
-@media (max-height: 400px) {
+/* Ultra-short landscape (under ~420 px height) */
+@media (max-height: 420px) and (min-aspect-ratio: 5/4) {
     .title-screen {
         padding: 4px 8px;
         gap: 3px;
     }
     .title-logo {
-        max-height: 24px;
+        max-height: 22px;
     }
     .title-player__label {
         display: none;
     }
     .title-player__input {
         font-size: 9px;
-        padding: 4px 6px;
+        padding: 3px 6px;
     }
     .mode-tile {
-        padding: 4px;
+        padding: 3px;
         gap: 2px;
     }
     .mode-tile__icon {
@@ -348,6 +341,13 @@ body.root-page {
     .how-to-play-link,
     #leaderboard-btn {
         font-size: 7px;
-        padding: 4px 8px;
+        padding: 3px 6px;
     }
+}
+
+/* Tall but narrow (portrait phones — fallback while rotate prompt shows) */
+@media (max-height: 600px) and (orientation: portrait) {
+    .title-logo { max-height: 56px; }
+    .mode-tile__icon { width: 28px; height: 28px; }
+    .mode-tile__label { font-size: 9px; }
 }
