@@ -229,7 +229,6 @@ body.root-page {
 
 /* Short viewports: trim non-essentials */
 @media (max-height: 720px) {
-    .title-mascot { display: none; }
     .title-credits { display: none; }
 }
 
@@ -253,11 +252,13 @@ body.root-page {
         max-height: clamp(28px, 8vh, 56px);
     }
     .title-mascot {
-        display: none;
+        width: clamp(36px, 9vh, 64px);
+        flex: 0 0 auto;
     }
     .title-player {
-        width: min(420px, 90%);
-        gap: 8px;
+        width: min(460px, 92%);
+        gap: 10px;
+        justify-content: center;
     }
     .title-player__field {
         flex-direction: row;
@@ -321,6 +322,9 @@ body.root-page {
     }
     .title-logo {
         max-height: 22px;
+    }
+    .title-mascot {
+        width: 30px;
     }
     .title-player__label {
         display: none;
