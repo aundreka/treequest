@@ -42,38 +42,39 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 16px;
+    margin: 0 0 10px;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
 }
 
 .panel-heading h2 {
     margin: 0;
+    font-size: 13px;
 }
 
 .panel-heading p {
     margin: 0;
-    font-size: 9px;
+    font-size: 8px;
     color: var(--c-muted);
 }
 
 .worlds-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
 }
 
 .world-card {
     background: var(--c-paper-hi);
-    border: 4px solid var(--c-ink);
-    padding: 12px;
+    border: 3px solid var(--c-ink);
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
     box-shadow:
-        inset 3px 3px 0 var(--c-paper-hi),
-        inset -3px -3px 0 var(--c-paper-lo),
-        5px 5px 0 var(--c-ink);
+        inset 2px 2px 0 var(--c-paper-hi),
+        inset -2px -2px 0 var(--c-paper-lo),
+        3px 3px 0 var(--c-ink);
 }
 
 .world-card.locked {
@@ -87,8 +88,8 @@
 
 .world-art {
     background: var(--c-sky);
-    border: 3px solid var(--c-ink);
-    height: 100px;
+    border: 2px solid var(--c-ink);
+    height: 64px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -96,8 +97,8 @@
 }
 
 .world-art img {
-    width: 60px;
-    height: 90px;
+    width: 42px;
+    height: 60px;
     image-rendering: pixelated;
 }
 
@@ -108,64 +109,64 @@
 .world-info {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .world-index {
-    font-size: 8px;
+    font-size: 7px;
     color: var(--c-accent);
     margin: 0;
 }
 
 .world-title {
-    font-size: 12px;
+    font-size: 10px;
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 .world-range {
-    font-size: 9px;
+    font-size: 8px;
     color: var(--c-muted);
     margin: 0;
 }
 
 .world-stars {
-    font-size: 10px;
+    font-size: 9px;
     color: var(--c-ink);
     margin: 0;
 }
 
 .world-stars .star-icon {
     color: var(--c-gold);
-    font-size: 14px;
+    font-size: 12px;
     text-shadow: 1px 1px 0 var(--c-ink);
-    margin-right: 4px;
+    margin-right: 3px;
 }
 
 .world-stars .star-total {
     color: var(--c-muted);
-    font-size: 8px;
+    font-size: 7px;
 }
 
 /* ----- Chapter levels panel ----- */
 
 .chapter-levels-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
 }
 
 .level-card {
     background: var(--c-paper-hi);
-    border: 4px solid var(--c-ink);
-    padding: 10px;
+    border: 3px solid var(--c-ink);
+    padding: 7px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
     box-shadow:
         inset 2px 2px 0 var(--c-paper-hi),
         inset -2px -2px 0 var(--c-paper-lo),
-        4px 4px 0 var(--c-ink);
+        3px 3px 0 var(--c-ink);
 }
 
 .level-card.is-boss {
@@ -194,22 +195,22 @@
 .level-card__header {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
 }
 
 .level-card__label {
-    font-size: 10px;
+    font-size: 9px;
     margin: 0;
 }
 
 .level-card__traversal {
-    font-size: 9px;
+    font-size: 8px;
     margin: 0;
     color: var(--c-frame);
 }
 
 .level-card__mode {
-    font-size: 9px;
+    font-size: 8px;
     margin: 0;
     color: var(--c-accent);
 }
@@ -218,7 +219,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 8px;
+}
+
+.level-card .nes-btn {
     font-size: 9px;
+    padding: 6px 10px;
 }
 
 .level-card__stars {
@@ -234,19 +240,19 @@
 
 .achievements-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
 }
 
 .achievement-card {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     background: var(--c-paper-hi);
-    border: 3px solid var(--c-ink);
-    padding: 10px;
-    font-size: 9px;
-    box-shadow: 3px 3px 0 var(--c-ink);
+    border: 2px solid var(--c-ink);
+    padding: 7px;
+    font-size: 8px;
+    box-shadow: 2px 2px 0 var(--c-ink);
 }
 
 .achievement-card--empty {
@@ -255,13 +261,13 @@
 
 .achievement-icon {
     color: var(--c-gold);
-    font-size: 14px;
+    font-size: 12px;
     text-shadow: 1px 1px 0 var(--c-ink);
 }
 
 .close-chapter-btn {
-    font-size: 9px;
-    padding: 8px 12px;
+    font-size: 8px;
+    padding: 6px 10px;
 }
 
 @media (max-width: 600px) {

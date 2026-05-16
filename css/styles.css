@@ -234,9 +234,53 @@ body.game-page #footer-container {
     body.game-page .speedrun-hud {
         gap: 6px;
     }
+
+    /* Identify mode: lay the 4 choice buttons out as ONE horizontal row to save vertical space */
+    body.game-page .choice-buttons {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+        padding: 5px;
+    }
+    body.game-page .choice-buttons .nes-btn {
+        font-size: 8px;
+        padding: 6px 4px;
+        box-shadow:
+            inset 2px 2px 0 #FFE060,
+            inset -2px -2px 0 #B07020,
+            2px 2px 0 var(--c-ink);
+        line-height: 1.2;
+    }
+
+    /* Build mode: shrink the tile bank so all tiles fit without scrolling */
     body.game-page .tile-bank {
-        max-height: 24vh;
-        padding: 4px;
+        max-height: 26vh;
+        padding: 4px 6px;
+        gap: 3px;
+    }
+    body.game-page .tiles-wrap {
+        gap: 4px;
+        justify-content: center;
+    }
+    body.game-page .tile {
+        width: clamp(26px, 6vh, 40px);
+        height: clamp(26px, 6vh, 40px);
+        font-size: clamp(8px, 1.6vh, 12px);
+        border-width: 3px;
+        box-shadow:
+            inset 2px 2px 0 var(--c-paper-hi),
+            inset -2px -2px 0 var(--c-paper-lo);
+    }
+    body.game-page .build-hint {
+        font-size: 7px;
+        margin: 0 0 2px;
+    }
+    body.game-page .build-sequence-list {
+        font-size: 8px;
+        line-height: 1.5;
+        word-spacing: 0;
+    }
+    body.game-page .build-sequence {
+        margin: 0;
     }
 }
 
@@ -253,6 +297,21 @@ body.game-page #footer-container {
         padding: 4px 7px;
         top: 3px;
     }
+    body.game-page .choice-buttons {
+        gap: 4px;
+        padding: 4px;
+    }
+    body.game-page .choice-buttons .nes-btn {
+        font-size: 7px;
+        padding: 4px 2px;
+    }
+    body.game-page .tile {
+        width: 24px;
+        height: 24px;
+        font-size: 8px;
+    }
+    body.game-page .build-hint { font-size: 6px; }
+    body.game-page .build-sequence-list { font-size: 7px; }
 }
 
 .game-header {
