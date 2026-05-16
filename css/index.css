@@ -246,7 +246,8 @@ body.root-page {
 @media (max-height: 700px) and (min-aspect-ratio: 5/4) {
     .title-screen {
         padding: 6px clamp(8px, 2vw, 18px);
-        gap: 5px;
+        gap: 6px;
+        justify-content: center;
     }
     .title-logo {
         max-height: clamp(28px, 8vh, 56px);
@@ -255,7 +256,7 @@ body.root-page {
         display: none;
     }
     .title-player {
-        width: min(500px, 90%);
+        width: min(420px, 90%);
         gap: 8px;
     }
     .title-player__field {
@@ -274,33 +275,35 @@ body.root-page {
         font-size: 10px;
         padding: 5px 8px;
         flex: 1 1 auto;
+        max-width: 280px;
     }
     .title-modes {
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: 1fr;
-        flex: 1 1 auto;
-        max-height: 100%;
+        grid-template-rows: auto;
+        flex: 0 0 auto;
+        height: clamp(70px, 22vh, 130px);
         gap: 6px;
         width: 100%;
+        max-width: 640px;
     }
     .mode-tile {
-        padding: clamp(4px, 1vh, 10px);
-        gap: clamp(2px, 0.8vh, 8px);
+        padding: clamp(4px, 1vh, 8px);
+        gap: clamp(2px, 0.8vh, 6px);
         box-shadow:
             inset 2px 2px 0 var(--c-paper-hi),
             inset -2px -2px 0 var(--c-paper-lo),
             3px 3px 0 var(--c-ink);
     }
     .mode-tile__icon {
-        width: clamp(16px, 6vh, 40px);
-        height: clamp(16px, 6vh, 40px);
+        width: clamp(16px, 5vh, 32px);
+        height: clamp(16px, 5vh, 32px);
     }
     .mode-tile__label {
-        font-size: clamp(7px, 1.8vh, 11px);
+        font-size: clamp(7px, 1.6vh, 10px);
         letter-spacing: 0;
     }
     .title-extras {
-        gap: 6px;
+        gap: 8px;
     }
     .title-extras .nes-btn,
     .how-to-play-link,
