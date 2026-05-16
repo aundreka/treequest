@@ -74,15 +74,28 @@
             name = `Tutorial ${id}: ${TRAVERSAL_LABELS[traversal]}`;
             isBoss = false;
         } else {
+            // Hard cap on node count so trees always stay tappable on small screens.
+            // Beyond the cap, difficulty continues via a tighter timer instead.
+            const MAX_NODES = 15;
+
             traversal = TRAVERSAL_TYPES[(id - 1) % 4];
             mode = "classic";
-            size = Math.min(50, 7 + Math.floor((id - 4) / 3));
-            timeLimit = Math.max(20, 90 - Math.floor((id - 4) * 1.5));
+            const idealSize = 7 + Math.floor((id - 4) / 3);
+            size = Math.min(MAX_NODES, idealSize);
+
+            // Base timer drops by 1.5s per level, floor at 20s
+            let timeBudget = Math.max(20, 90 - Math.floor((id - 4) * 1.5));
+            // Past the node cap, every extra "ideal" node trims an extra second
+            if (idealSize > MAX_NODES) {
+                const overage = idealSize - MAX_NODES;
+                timeBudget = Math.max(8, timeBudget - overage);
+            }
+            timeLimit = timeBudget;
+
             isBoss = id % 10 === 0;
             if (isBoss) {
-                size = Math.min(50, size + 3);
-                timeLimit = Math.max(20, timeLimit - 10);
-                // Boss traversal still derived from seed for variety
+                size = Math.min(MAX_NODES, size + 3);
+                timeLimit = Math.max(8, timeLimit - 10);
                 const bossIdx = seed % 4;
                 traversal = TRAVERSAL_TYPES[bossIdx];
                 name = `Boss: ${chapter.name}`;

@@ -25,7 +25,8 @@
             if (ended) return;
             els.speedrunRound.textContent = round;
 
-            const size = Math.min(20, 6 + Math.floor(round * 0.7));
+            // Cap node count so the tree always stays tappable; speed scales via the global timer.
+            const size = Math.min(15, 6 + Math.floor(round * 0.7));
             const seed = ((Date.now() & 0xFFFF) ^ (round * 2654435761)) >>> 0;
             const rng = TQTree.mulberry32(seed);
             const tree = TQTree.generateRandomTree(size, rng);
