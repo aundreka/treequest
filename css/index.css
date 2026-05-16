@@ -1,130 +1,182 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* Title-screen layout. Colors/font in theme.css */
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Press Start 2P', cursive;
-    background: url('../assets/tree.gif') no-repeat center center/cover;
-    color: #fff;
-    text-align: center;
-}
-#start-game {
-    font-family: 'Press Start 2P', cursive; /* Ensure the correct font is applied */
-    background: linear-gradient(45deg, #ffcc00, #ff6600);
-    color: black;
-    border: none;
-    padding: 20px 40px;
-    font-size: 2rem;
-    cursor: pointer;
-    border-radius: 12px;
-    box-shadow: 0px 6px 14px rgba(255, 165, 0, 0.9);
-    transition: transform 0.2s, box-shadow 0.2s;
+body.root-page {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
 }
 
-#start-game:hover {
-    transform: scale(1.2);
-    box-shadow: 0px 8px 16px rgba(255, 140, 0, 1);
-}
-
-#navbar {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 15px;
-    font-size: 18px;
-    text-transform: uppercase;
-}
-
-.hero {
+.title-screen {
+    height: 100%;
+    max-height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
-    text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9);
+    text-align: center;
+    padding: clamp(8px, 2vh, 24px) clamp(12px, 3vw, 24px);
+    gap: clamp(6px, 1.5vh, 14px);
 }
 
-.hero h1 {
-    font-size: 4rem; 
-    margin-bottom: 30px;
+.title-logo {
+    flex: 0 0 auto;
+    width: min(420px, 88%);
+    max-height: clamp(40px, 11vh, 88px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero p {
-    font-size: 1.5rem; 
-    margin-bottom: 40px;
+.title-logo__img {
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    image-rendering: pixelated;
+    filter: drop-shadow(4px 4px 0 var(--c-ink));
+    object-fit: contain;
 }
 
-#start-game {
-    background: linear-gradient(45deg, #ffcc00, #ff6600);
-    color: black;
-    border: none;
-    padding: 20px 40px;
-    font-size: 2rem;
+.title-mascot {
+    flex: 0 0 auto;
+    width: clamp(48px, 8vh, 72px);
+    height: auto;
+    aspect-ratio: 32 / 48;
+    image-rendering: pixelated;
+}
+
+.title-modes {
+    flex: 1 1 auto;
+    width: min(520px, 100%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: clamp(8px, 1.4vh, 14px);
+    min-height: 0;
+    max-height: 100%;
+}
+
+.mode-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(4px, 1vh, 12px);
+    padding: clamp(8px, 1.5vh, 16px);
+    background: var(--c-paper);
+    color: var(--c-ink);
+    border: 4px solid var(--c-ink);
     cursor: pointer;
-    border-radius: 12px;
-    box-shadow: 0px 6px 14px rgba(255, 165, 0, 0.9);
-    transition: transform 0.2s, box-shadow 0.2s;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    -ms-border-radius: 12px;
-    -o-border-radius: 12px;
+    font-family: 'Press Start 2P', monospace;
+    box-shadow:
+        inset 3px 3px 0 var(--c-paper-hi),
+        inset -3px -3px 0 var(--c-paper-lo),
+        5px 5px 0 var(--c-ink);
+    min-height: 0;
+    min-width: 0;
 }
 
-#start-game:hover {
-    transform: scale(1.2);
-    box-shadow: 0px 8px 16px rgba(255, 140, 0, 1);
+.mode-tile:hover {
+    background: var(--c-gold);
 }
 
-#footer {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    font-size: 16px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+.mode-tile:active {
+    transform: translate(3px, 3px);
+    box-shadow:
+        inset 3px 3px 0 var(--c-paper-lo),
+        inset -3px -3px 0 var(--c-paper-hi),
+        2px 2px 0 var(--c-ink);
 }
-@media (max-width: 800px) {
-    .hero h1 {
-        font-size: 2.5rem;
-        margin-bottom: 15px;
-    }
 
-    .hero p {
-        font-size: 1rem;
-        margin-bottom: 20px;
-    }
+.mode-tile--classic { background: #BFE8A8; }
+.mode-tile--classic:hover { background: #A8D880; }
 
-    #start-game {
-        font-size: 1.2rem;
-        padding: 12px 25px;
-    }
+.mode-tile--identify { background: var(--c-frame); color: var(--c-paper-hi); }
+.mode-tile--identify:hover { background: #2020A0; }
 
-    #navbar {
-        font-size: 14px;
-        padding: 8px;
-    }
+.mode-tile--build { background: #FCE0A8; }
+.mode-tile--build:hover { background: var(--c-gold); }
 
-    #footer {
-        font-size: 12px;
-        padding: 10px;
-    }
+.mode-tile--speedrun { background: var(--c-accent); color: var(--c-paper-hi); }
+.mode-tile--speedrun:hover { background: #FF5048; }
+
+.mode-tile__icon {
+    width: clamp(28px, 6vh, 48px);
+    height: clamp(28px, 6vh, 48px);
+    image-rendering: pixelated;
+    flex: 0 0 auto;
 }
-@media (max-width: 480px) {
-    .hero h1 {
-        font-size: 2rem;
-        margin-bottom: 15px;
-    }
 
-    .hero p {
-        font-size: 0.8rem;
-        margin-bottom: 20px;
-    }
+.mode-tile__label {
+    font-size: clamp(9px, 1.4vh, 13px);
+    letter-spacing: 1px;
+    text-align: center;
+    line-height: 1.3;
+}
 
-    #start-game {
-        font-size: 1rem;
-        padding: 12px 25px;
-    }
+.how-to-play-link {
+    flex: 0 0 auto;
+    font-size: clamp(8px, 1.2vh, 11px);
+    padding: clamp(6px, 1.2vh, 12px) clamp(12px, 2vw, 20px);
+}
 
-    #footer {
-        font-size: 8px;
-        padding: 10px;
-    }
+.title-info {
+    width: min(640px, 100%);
+    margin: 0 auto;
+    text-align: left;
+    flex: 0 0 auto;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+.title-info h2 {
+    margin: 0 0 10px;
+}
+
+.how-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+.how-list li::before {
+    content: "> ";
+    color: var(--c-accent);
+}
+
+.how-tip {
+    font-size: 9px;
+    color: var(--c-muted);
+    margin: 0;
+}
+
+.title-credits {
+    flex: 0 0 auto;
+    font-size: clamp(7px, 1vh, 9px);
+    color: var(--c-paper-hi);
+    text-shadow: 1px 1px 0 var(--c-ink);
+    margin: 0;
+}
+
+/* Short viewports: trim non-essentials */
+@media (max-height: 600px) {
+    .title-mascot { display: none; }
+    .title-credits { display: none; }
+}
+
+@media (max-height: 480px) {
+    .title-logo { max-height: 48px; }
+}
+
+@media (max-width: 520px) {
+    .title-modes { width: 100%; }
+}
+
+@media (max-width: 380px) {
+    .mode-tile__icon { width: 28px; height: 28px; }
+    .mode-tile__label { font-size: 9px; letter-spacing: 0.5px; }
 }

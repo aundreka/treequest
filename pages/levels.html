@@ -4,38 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TreeQuest - Levels</title>
+    <link rel="stylesheet" href="../css/theme.css">
     <link rel="stylesheet" href="../css/levels.css">
     <link rel="stylesheet" href="../css/footer.css">
 </head>
 <body>
-    <div class="deco-circle"></div>
-    <div class="deco-circle"></div>
-    
-    <h1><span>🌳</span>TreeQuest</h1>
+    <main class="levels-shell">
+        <header class="levels-header nes-frame">
+            <div class="levels-header__text">
+                <p class="eyebrow">World Map</p>
+                <h1>Choose Your Quest</h1>
+                <p class="subhead">Pick a world, then a level. Earn 2 stars on 7 of 10 levels to unlock the next world.</p>
+            </div>
+            <div class="levels-header__actions">
+                <button class="nes-btn" type="button" onclick="window.location.href='../index.html'">Home</button>
+                <button class="nes-btn nes-btn--accent" type="button" onclick="window.location.href='game.html?mode=speedrun'">Speedrun</button>
+            </div>
+        </header>
 
-    <div id="levels-container">
-         
-    </div>
+        <section class="worlds-panel nes-frame">
+            <div class="panel-heading">
+                <h2>Worlds</h2>
+                <p>Each world bundles 10 themed levels.</p>
+            </div>
+            <div id="worlds-container" class="worlds-grid" aria-live="polite"></div>
+        </section>
 
-    <h2>Achievements</h2>
-    <div id="achievements-list">
-        <div class="achievement unlocked">
-            <span class="achievement-icon">🏆</span>
-            <div>First Seed Planted</div>
-        </div>
-        <div class="achievement locked">
-            <span class="achievement-icon">🔒</span>
-            <div>Forest Guardian</div>
-        </div>
-    </div>
+        <section id="chapter-levels-panel" class="chapter-levels-panel nes-frame" hidden>
+            <div class="panel-heading">
+                <h2 id="chapter-levels-title">Levels</h2>
+                <button class="nes-btn close-chapter-btn" type="button" id="close-chapter-btn">Close</button>
+            </div>
+            <div id="chapter-levels" class="chapter-levels-grid"></div>
+        </section>
+
+        <section class="achievements-panel nes-frame">
+            <div class="panel-heading">
+                <p class="eyebrow">Trophies</p>
+                <h2>Achievements</h2>
+            </div>
+            <div id="achievements-list" class="achievements-grid"></div>
+        </section>
+    </main>
+
     <div id="footer-container"></div>
 
-    <script src="../js/levels.js" defer></script> 
+    <script defer src="../js/audio.js"></script>
+    <script defer src="../js/ui.js"></script>
+    <script defer src="../js/level-config.js"></script>
+    <script defer src="../js/levels.js"></script>
     <script>
         fetch('../components/footer.html')
             .then(response => response.text())
             .then(data => document.getElementById('footer-container').innerHTML = data);
     </script>
 </body>
-
 </html>

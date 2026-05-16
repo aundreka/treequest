@@ -1,368 +1,447 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* Game page layout. Colors, fonts, and node visuals live in theme.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap');
-
-body {
-    font-family: 'Press Start 2P', cursive;
-    background: url('../assets/tree.gif') no-repeat center center fixed;
-    background-size: cover;
-    color: #333;
-    text-align: center;
-    margin: 0;
-    padding: 0px;
-    overflow-x: auto;
-}
-
-header {
+.game-shell {
+    width: min(1200px, 100%);
     display: flex;
     flex-direction: column;
+    gap: 20px;
+}
+
+/* ===== Viewport-locked game page (no scrolling) ===== */
+body.game-page {
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
+}
+
+body.game-page .game-shell {
+    height: 100%;
+    max-height: 100%;
+    padding: 10px;
+    gap: 8px;
+    margin: 0 auto;
+}
+
+body.game-page .game-header {
+    flex: 0 0 auto;
+    padding: 8px 14px;
+    gap: 10px;
     align-items: center;
-    padding: 15px;
-
 }
 
-h1 {
-    font-size: 24px;
-    color: #2c3e50;
+body.game-page .game-header__text {
+    flex: 1 1 auto;
+}
+
+body.game-page .game-header__text .eyebrow {
+    font-size: 8px;
+    margin: 0 0 3px;
+}
+
+body.game-page .game-header__text h1 {
+    font-size: clamp(14px, 2vw, 20px);
+    line-height: 1.2;
+    margin: 0 0 4px;
+}
+
+body.game-page .game-stage__canvas .traversal-badge {
+    padding: 7px 12px;
+    font-size: clamp(10px, 1.5vw, 14px);
+}
+
+body.game-page .game-header__actions {
+    flex: 0 0 auto;
+    gap: 6px;
+    align-items: flex-end;
+}
+
+body.game-page .hud-chip {
+    font-size: 9px;
+    padding: 6px 10px;
+    min-width: 90px;
+}
+
+body.game-page .button-container .nes-btn {
+    font-size: 9px;
+    padding: 7px 12px;
+}
+
+body.game-page .game-stage {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 6px;
+}
+
+body.game-page .game-instructions {
+    flex: 0 0 auto;
+    font-size: 9px;
+    padding: 6px 10px;
+}
+
+body.game-page .game-stage__canvas {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.game-page .tree-svg {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+}
+
+body.game-page .game-feedback {
+    flex: 0 0 auto;
+    font-size: 9px;
+    padding: 6px 10px;
+    min-height: auto;
+}
+
+body.game-page .choice-buttons {
+    flex: 0 0 auto;
+}
+
+body.game-page .tile-bank {
+    flex: 0 0 auto;
+    max-height: 26vh;
+    overflow-y: auto;
+    padding: 8px;
+    gap: 6px;
+}
+
+body.game-page .tiles-wrap {
+    gap: 6px;
+}
+
+body.game-page .speedrun-hud {
+    flex: 0 0 auto;
+    gap: 8px;
+}
+
+body.game-page #footer-container {
+    display: none;
+}
+
+/* Short screens: collapse less-critical text */
+@media (max-height: 640px) {
+    body.game-page .game-shell { padding: 6px; gap: 6px; }
+    body.game-page .game-header__text .eyebrow { display: none; }
+    body.game-page .game-instructions { display: none; }
+    body.game-page .traversal-badge { margin-top: 2px; padding: 6px 10px; }
+}
+
+/* Narrow screens: stack header */
+@media (max-width: 640px) {
+    body.game-page .game-header { flex-direction: column; align-items: stretch; }
+    body.game-page .game-header__actions { flex-direction: row; align-items: center; justify-content: space-between; }
+    body.game-page .hud-chip { min-width: 0; flex: 1 1 0; text-align: center; }
+    body.game-page .button-container { flex: 1 1 0; }
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.game-header__text {
+    flex: 1 1 280px;
+    min-width: 0;
+}
+
+.game-header__text h1 {
+    margin: 0 0 8px;
+    word-wrap: break-word;
+}
+
+.game-header__text p {
+    margin: 4px 0;
+}
+
+.traversal-badge {
+    display: inline-block;
+    padding: 10px 16px;
+    background: var(--c-gold);
+    color: var(--c-ink);
+    border: 4px solid var(--c-ink);
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(11px, 1.8vw, 16px);
+    line-height: 1.4;
+    letter-spacing: 1px;
+    box-shadow:
+        inset 3px 3px 0 #FFE060,
+        inset -3px -3px 0 #B07020,
+        5px 5px 0 var(--c-ink);
     text-transform: uppercase;
+    word-wrap: break-word;
 }
 
-p {
-    font-size: 16px;
-    font-weight: 400;
-    color: #555;
-}
-#note {
-    font-size: 12px; 
-    color: gray; 
+.game-stage__canvas .traversal-badge {
     position: absolute;
     top: 10px;
-    right: 10px;
-    max-width: 400px; 
-    text-align: right;
-}
-
-#game-container {
-    position: relative;
-    width: auto; 
-    min-width: 300px; 
-    max-width: 100vw; 
-
-    height: auto;
-    min-height: 650px; 
-    
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 15px;
-    display: flex;
-    flex-wrap: wrap; /
-    align-items: flex-start;
-    justify-content: center;
-    padding: 20px; 
-    
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
-    border: 4px solid #a87ff5;
-    overflow-x: auto; 
-    white-space: nowrap;
-}
-
-.highlight {
-    background-color: yellow;
-    animation: pulse 0.5s infinite alternate;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
-}
-
-.tutorial-step {
-    position: absolute;
-    background: black;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    top: -30px;
     left: 50%;
     transform: translateX(-50%);
-}
-.try-again-btn {
-    font-family: 'Press Start 2P', cursive;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: linear-gradient(135deg, #ff4b5c, #ff2e63);
-    color: white;
-    font-size: 16px;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    z-index: 1000;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    margin: 0;
+    z-index: 10;
+    max-width: calc(100% - 24px);
     text-align: center;
 }
 
-.try-again-btn:hover {
-    background: linear-gradient(135deg, #ff2e63, #d90429);
-    transform: translate(-50%, -50%) scale(1.05);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+.traversal-badge--hidden {
+    background: var(--c-frame);
+    color: var(--c-paper-hi);
+    box-shadow:
+        inset 3px 3px 0 #4040C0,
+        inset -3px -3px 0 #000040,
+        5px 5px 0 var(--c-ink);
+    letter-spacing: 4px;
 }
 
-.try-again-btn:active {
-    transform: translate(-50%, -50%) scale(0.95);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+.game-header__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
 }
 
-
-.tree-node.highlight {
-    background: yellow;
-    border: 3px solid orange;
-}
-
-@keyframes float {
-    0% { transform: translateX(-200px); }
-    100% { transform: translateX(100vw); }
-}
-
-#tree-container {
-    position: relative;
-    width: 100%;
-    min-width: 700px;
-    height: 100%;
-    display: inline-block;
-    justify-content: center;
-    align-items: center;
-}
-
-.tree-node {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #cac39a, #ffffff);
-    color: rgb(0, 0, 0);
-    font-weight: 600;
+.hud-chip {
+    background: var(--c-frame);
+    color: var(--c-paper-hi);
+    padding: 8px 14px;
+    border: 4px solid var(--c-ink);
+    box-shadow:
+        inset 2px 2px 0 #4040C0,
+        inset -2px -2px 0 #000040;
+    font-size: 10px;
+    min-width: 120px;
     text-align: center;
-    line-height: 50px;
-    border-radius: 50%;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    user-select: none;
-}
-
-.tree-node:hover {
-    transform: scale(1.15) rotate(5deg);
-}
-
-.tree-node.correct {
-    background: linear-gradient(135deg, #4CAF50, #2E7D32) !important;
-    border-color: #2E7D32;
-    animation: bounce 0.5s ease-in-out;
-}
-
-.tree-node.wrong {
-    background: linear-gradient(135deg, #E74C3C, #C0392B) !important;
-    border-color: #C0392B;
-    animation: shake 0.5s ease-in-out;
-}
-
-@keyframes bounce {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0); }
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25%, 75% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-}
-
-#tree-lines {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.line {
-    position: absolute;
-    width: 3px;
-    background: #5D4037;
-    transform-origin: top;
-}
-
-#game-controls {
-    text-align: center;
-    margin-top: 10px; 
-    padding: 10px; 
-    font-size: 14px; 
 }
 
 .button-container {
     display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.game-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.game-instructions {
+    font-size: 10px;
+    margin: 0;
+    color: var(--c-muted);
+    background: var(--c-paper-hi);
+    border: 3px solid var(--c-ink);
+    padding: 10px 14px;
+    box-shadow: 3px 3px 0 var(--c-ink);
+}
+
+.game-stage__canvas {
+    position: relative;
+    background: var(--c-paper-hi);
+    border: 4px solid var(--c-ink);
+    box-shadow:
+        inset 3px 3px 0 var(--c-paper-hi),
+        inset -3px -3px 0 var(--c-paper-lo);
+    padding: 16px;
+    min-height: 240px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Tree SVG is styled in theme.css */
+
+.game-feedback {
+    min-height: 20px;
+    margin: 0;
+    padding: 8px 12px;
+    background: var(--c-frame);
+    color: var(--c-paper-hi);
+    border: 3px solid var(--c-ink);
+    font-size: 10px;
+    box-shadow: 3px 3px 0 var(--c-ink);
+}
+
+.choice-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 12px;
+    background: var(--c-frame);
+    border: 4px solid var(--c-ink);
+    box-shadow:
+        inset 3px 3px 0 #4040C0,
+        inset -3px -3px 0 #000040,
+        4px 4px 0 var(--c-ink);
+}
+
+.choice-buttons .nes-btn {
+    background: var(--c-gold);
+    color: var(--c-ink);
+    font-size: 11px;
+    padding: 12px 14px;
+    box-shadow:
+        inset 3px 3px 0 #FFE060,
+        inset -3px -3px 0 #B07020,
+        4px 4px 0 var(--c-ink);
+}
+
+.choice-buttons .nes-btn:hover {
+    background: var(--c-paper-hi);
+}
+
+.choice-buttons .nes-btn.nes-btn--gold {
+    background: var(--c-grass-light);
+    color: var(--c-paper-hi);
+}
+
+.choice-buttons .nes-btn.nes-btn--accent {
+    background: var(--c-accent);
+    color: var(--c-paper-hi);
+}
+
+/* Auxiliary panels: ensure [hidden] truly hides them */
+.choice-buttons[hidden],
+.tile-bank[hidden],
+.speedrun-hud[hidden] { display: none; }
+
+.tile-bank {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    background: var(--c-paper-hi);
+    border: 4px solid var(--c-ink);
+    box-shadow: 3px 3px 0 var(--c-ink);
+}
+
+.tiles-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.build-sequence {
+    margin: 0 0 4px;
+}
+
+.build-hint {
+    font-size: 9px;
+    color: var(--c-accent);
+    margin: 0 0 6px;
+}
+
+.build-sequence-list {
+    font-size: 11px;
+    color: var(--c-ink);
+    margin: 0;
+    word-spacing: 2px;
+    line-height: 1.8;
+}
+
+.tile {
+    width: 56px;
+    height: 56px;
+    background: var(--c-paper);
+    border: 4px solid var(--c-ink);
+    display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 10px; 
-    margin-top: 5px;
-}
-
-.button-container button {
-    font-family: 'Inter', sans-serif;
-    padding: 8px 16px; 
-    font-size: 1rem; 
-    border-radius: 10px; 
-    transition: transform 0.2s;
-}
-
-.button-container button:hover {
-    transform: scale(1.05); 
-}
-
-#timer, #feedback {
+    font-family: 'Press Start 2P', monospace;
     font-size: 16px;
-    padding: 8px; 
-    border-radius: 6px; 
+    cursor: grab;
+    user-select: none;
+    box-shadow:
+        inset 3px 3px 0 var(--c-paper-hi),
+        inset -3px -3px 0 var(--c-paper-lo);
+    touch-action: none;
 }
 
+.tile.dragging {
+    opacity: 0.7;
+    cursor: grabbing;
+}
 
-.notification {
+.tile.placed {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.tile.shake {
+    background: var(--c-accent);
+    color: var(--c-paper-hi);
+    animation: tile-shake 0.35s steps(4, end);
+}
+
+@keyframes tile-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+.speedrun-hud {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.try-again-btn {
     position: fixed;
-    top: 20px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    background: #28a745;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    animation: fadeOut 3s forwards;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    font-size: 14px;
+    padding: 16px 26px;
 }
 
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; }
+.try-again-btn:active {
+    transform: translate(calc(-50% + 3px), calc(-50% + 3px));
 }
 
-@media (max-width: 768px) {
-    h1 {
-        font-size: 18px;
-        padding-top: 10px;
+@media (max-width: 760px) {
+    .game-header {
+        flex-direction: column;
     }
-
-    p {
-        font-size: 12px;
+    .game-header__actions {
+        align-items: stretch;
+        width: 100%;
     }
-
-    #note {
-        font-size: 8px; 
-        max-width: 600px;
+    .button-container {
+        justify-content: stretch;
     }
-
-    #game-container {
-        min-height: 800px;
-        max-width: unset;
-        padding: 20px;
-        background: none;
-        box-shadow: none;
-        backdrop-filter: none;
-        border: none;
-        overflow-x: auto; 
-    
+    .button-container .nes-btn {
+        flex: 1 1 0;
     }
-
-    #tree-container {
-        min-width: 1000px;
-        margin-left: 160px;
-
+    .hud-chip {
+        text-align: left;
     }
-
-    #timer, #feedback {
-        font-size: 10px;
-        padding: 0px; 
-        border-radius: 6px; 
-    }
-
-    .tree-node {
-        width: 40px;
-        height: 40px;
-        font-size: 14px;
-        line-height: 40px;
-    }
-
-    .try-again-btn {
-        font-size: 12px;
-        padding: 10px 20px;
-    }
-
-    .button-container button {
-        font-size: 12px;
-        padding: 5px 10px;
+    .choice-buttons {
+        grid-template-columns: 1fr;
     }
 }
 
-@media (max-width: 480px) {
-    h1 {
-        font-size: 18px;
-        padding-top: 10px;
-    }
-
-    p {
+@media (max-width: 420px) {
+    .tile {
+        width: 44px;
+        height: 44px;
         font-size: 12px;
-    }
-
-    #note {
-        font-size: 8px; 
-        max-width: 600px;
-    }
-
-    #game-container {
-        min-height: 800px;
-        max-width: unset;
-        padding: 20px;
-        background: none;
-        box-shadow: none;
-        backdrop-filter: none;
-        border: none;
-        overflow-x: auto; 
-    
-    }
-
-    #tree-container {
-        min-width: 1000px;
-        margin-left: 160px;
-
-    }
-
-    #timer, #feedback {
-        font-size: 10px;
-        padding: 0px; 
-        border-radius: 6px; 
-    }
-
-    .tree-node {
-        width: 40px;
-        height: 40px;
-        font-size: 14px;
-        line-height: 40px;
-    }
-
-    .try-again-btn {
-        font-size: 12px;
-        padding: 10px 20px;
-    }
-
-    .button-container button {
-        font-size: 12px;
-        padding: 5px 10px;
     }
 }

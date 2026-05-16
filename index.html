@@ -4,27 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TreeQuest - Learn Binary Tree Traversal</title>
+    <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/footer.css">
-
+    <script defer src="js/audio.js"></script>
+    <script defer src="js/ui.js"></script>
     <script defer src="js/main.js"></script>
 </head>
-<body>
-    
-    <main>
-        <section class="hero">
-            <h1>Welcome to TreeQuest</h1>
-            <p>Master binary tree traversal with interactive learning!</p>
-          <br>  <a href="pages/levels.html"><button id="start-game">START</button></a>
-        </section>
+<body class="root-page">
+    <main class="page-shell title-screen">
+        <div class="title-logo">
+            <img src="assets/logo.svg" alt="TreeQuest" class="title-logo__img">
+        </div>
+
+        <img src="assets/mascot.svg" alt="" aria-hidden="true" class="title-mascot mascot">
+
+        <div class="title-modes">
+            <button class="mode-tile mode-tile--classic" type="button" data-mode="classic">
+                <img src="assets/icon-classic.svg" alt="" aria-hidden="true" class="mode-tile__icon">
+                <span class="mode-tile__label">Classic</span>
+            </button>
+            <button class="mode-tile mode-tile--identify" type="button" data-mode="identify">
+                <img src="assets/icon-identify.svg" alt="" aria-hidden="true" class="mode-tile__icon">
+                <span class="mode-tile__label">Identify</span>
+            </button>
+            <button class="mode-tile mode-tile--build" type="button" data-mode="build">
+                <img src="assets/icon-build.svg" alt="" aria-hidden="true" class="mode-tile__icon">
+                <span class="mode-tile__label">Build</span>
+            </button>
+            <button class="mode-tile mode-tile--speedrun" type="button" data-mode="speedrun">
+                <img src="assets/icon-speedrun.svg" alt="" aria-hidden="true" class="mode-tile__icon">
+                <span class="mode-tile__label">Speedrun</span>
+            </button>
+        </div>
+
+        <button class="nes-btn how-to-play-link" id="how-to-play-btn" type="button">How To Play</button>
+
+        <p class="title-credits">2024 - TreeQuest was created as an educational tool for learning binary tree traversal.</p>
     </main>
+
     <div id="footer-container"></div>
 
-    
+    <script>
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-container').innerHTML = data);
+    </script>
 </body>
-<script>
-    fetch('components/footer.html')
-        .then(response => response.text())
-        .then(data => document.getElementById('footer-container').innerHTML = data);
-</script>
 </html>

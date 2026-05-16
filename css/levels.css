@@ -1,187 +1,272 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* Levels page layout. Colors/font in theme.css */
 
-body {
-    font-family: 'Press Start 2P', cursive;
-    background-color: white;
-    color: #333;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50; 
-    margin-bottom: 30px;
-}
-
-#levels-container {
+.levels-shell {
+    width: min(1200px, 100%);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     gap: 20px;
-    padding: 20px;
+}
+
+.levels-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.levels-header__text {
+    flex: 1 1 280px;
+    min-width: 0;
+}
+
+.levels-header__text h1 {
+    margin: 0 0 8px;
+}
+
+.subhead {
+    font-size: 9px;
+    color: var(--c-muted);
+    margin: 4px 0 0;
+}
+
+.levels-header__actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ----- Worlds grid ----- */
+
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.panel-heading h2 {
+    margin: 0;
+}
+
+.panel-heading p {
+    margin: 0;
+    font-size: 9px;
+    color: var(--c-muted);
+}
+
+.worlds-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+}
+
+.world-card {
+    background: var(--c-paper-hi);
+    border: 4px solid var(--c-ink);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow:
+        inset 3px 3px 0 var(--c-paper-hi),
+        inset -3px -3px 0 var(--c-paper-lo),
+        5px 5px 0 var(--c-ink);
+}
+
+.world-card.locked {
+    background: #888888;
+    color: #333333;
+    box-shadow:
+        inset 3px 3px 0 #aaaaaa,
+        inset -3px -3px 0 #555555,
+        5px 5px 0 var(--c-ink);
+}
+
+.world-art {
+    background: var(--c-sky);
+    border: 3px solid var(--c-ink);
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.world-art img {
+    width: 60px;
+    height: 90px;
+    image-rendering: pixelated;
+}
+
+.world-card.locked .world-art {
+    filter: grayscale(1) brightness(0.7) !important;
+}
+
+.world-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.world-index {
+    font-size: 8px;
+    color: var(--c-accent);
+    margin: 0;
+}
+
+.world-title {
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.world-range {
+    font-size: 9px;
+    color: var(--c-muted);
+    margin: 0;
+}
+
+.world-stars {
+    font-size: 10px;
+    color: var(--c-ink);
+    margin: 0;
+}
+
+.world-stars .star-icon {
+    color: var(--c-gold);
+    font-size: 14px;
+    text-shadow: 1px 1px 0 var(--c-ink);
+    margin-right: 4px;
+}
+
+.world-stars .star-total {
+    color: var(--c-muted);
+    font-size: 8px;
+}
+
+/* ----- Chapter levels panel ----- */
+
+.chapter-levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
 }
 
 .level-card {
-    width: 120px;
-    height: 150px;
+    background: var(--c-paper-hi);
+    border: 4px solid var(--c-ink);
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 8px;
+    box-shadow:
+        inset 2px 2px 0 var(--c-paper-hi),
+        inset -2px -2px 0 var(--c-paper-lo),
+        4px 4px 0 var(--c-ink);
+}
+
+.level-card.is-boss {
+    background: var(--c-accent);
+    color: var(--c-paper-hi);
+}
+
+.level-card.is-boss .level-card__traversal,
+.level-card.is-boss .level-card__mode,
+.level-card.is-boss .level-card__score {
+    color: var(--c-paper-hi);
+}
+
+.level-card.locked {
+    background: #888888;
+}
+
+.level-card__header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.level-card__label {
+    font-size: 10px;
+    margin: 0;
+}
+
+.level-card__traversal {
+    font-size: 9px;
+    margin: 0;
+    color: var(--c-frame);
+}
+
+.level-card__mode {
+    font-size: 9px;
+    margin: 0;
+    color: var(--c-accent);
+}
+
+.level-card__meta {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    border-radius: 15px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    text-align: center;
+    font-size: 9px;
 }
 
-.level-btn {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 12px;
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    background: white;
-    color: black;
-    width: 100%;
-    text-transform: uppercase;
+.level-card__stars {
+    color: var(--c-gold);
+    text-shadow: 1px 1px 0 var(--c-ink);
 }
 
-.level-btn.unlocked:hover {
-    transform: scale(1.1);
+.level-card__score {
+    color: var(--c-muted);
 }
 
-.level-btn.locked {
-    background: gray;
-    color: white;
-    cursor: not-allowed;
+/* ----- Achievements ----- */
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
 }
 
-.star-container {
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #222;
-}
-
-
-.level-btn:hover:not(.locked) {
-    transform: scale(1.08) rotate(1deg);
-    box-shadow: 0 0 30px #ffe8ee;
-    z-index: 2;
-    -webkit-transform: scale(1.08) rotate(1deg);
-    -moz-transform: scale(1.08) rotate(1deg);
-    -ms-transform: scale(1.08) rotate(1deg);
-    -o-transform: scale(1.08) rotate(1deg);
-}
-
-
-.level-btn.locked {
-    background: linear-gradient(145deg, #bdc3c7, #95a5a6);
-    cursor: not-allowed;
-    box-shadow: none;
-    border: 4px solid #7f8c8d;
-    position: relative;
-}
-
-.level-btn.locked::after {
-    content: "🔒";
-    font-size: 24px;
-    position: absolute;
-    color: white;
-}
-
-h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-top: 40px;
-}
-
-#achievements-list {
-    list-style: none;
-    padding: 0;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.achievement {
-    background: rgba(0, 0, 0, 0.05);
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: bold;
+.achievement-card {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    transition: transform 0.2s ease;
+    gap: 10px;
+    background: var(--c-paper-hi);
+    border: 3px solid var(--c-ink);
+    padding: 10px;
+    font-size: 9px;
+    box-shadow: 3px 3px 0 var(--c-ink);
 }
 
-.achievement.unlocked {
-    border-left: 6px solid #27ae60;
-    background: rgba(39, 174, 96, 0.2);
+.achievement-card--empty {
+    color: var(--c-muted);
 }
 
-.achievement.locked {
-    opacity: 0.5;
+.achievement-icon {
+    color: var(--c-gold);
+    font-size: 14px;
+    text-shadow: 1px 1px 0 var(--c-ink);
 }
 
-.achievement:hover {
-    transform: scale(1.05);
+.close-chapter-btn {
+    font-size: 9px;
+    padding: 8px 12px;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-#levels-container, #achievements-list {
-    animation: fadeIn 0.8s ease-out;
-}
 @media (max-width: 600px) {
-    body {
-        padding: 5px;
+    .worlds-grid {
+        grid-template-columns: 1fr;
     }
-
-    h1 {
-        font-size: 18px;
-        margin-bottom: 15px;
+    .chapter-levels-grid {
+        grid-template-columns: 1fr 1fr;
     }
+}
 
-    #levels-container {
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-        gap: 10px;
-    }
-
-    .level-card {
-        width: 90px;
-        height: 110px;
-        padding: 8px;
-        border-radius: 10px;
-    }
-
-    .level-btn {
-        font-size: 9px;
-        padding: 10px;
-        border-radius: 6px;
-    }
-
-    .star-container {
-        font-size: 10px;
-    }
-
-    h2 {
-        font-size: 16px;
-        margin-top: 20px;
-    }
-
-    .achievement {
-        font-size: 11px;
-        padding: 10px;
+@media (max-width: 380px) {
+    .chapter-levels-grid {
+        grid-template-columns: 1fr;
     }
 }

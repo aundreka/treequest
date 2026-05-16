@@ -1,15 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
 #footer {
-    background: rgba(255, 255, 255); 
-    color: #272224;
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Press Start 2P', monospace;
     text-align: center;
-    padding: 15px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    font-size: 14px;
+    padding: 20px 12px 12px;
+    color: var(--c-paper-hi);
+    text-shadow: 1px 1px 0 var(--c-ink);
+    font-size: 8px;
+    line-height: 1.8;
 }
 
 #footer p {

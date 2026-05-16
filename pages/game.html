@@ -4,43 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TreeQuest - Play</title>
+    <link rel="stylesheet" href="../css/theme.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/footer.css">
-
 </head>
-<body>
-    <header>
-        <h1 id="level-title">Level</h1>
-        <p id="traversal-indicator"></p>
-        <p id='note'>Note: Scroll or drag to move the tree!</p>
-        <div id="game-controls">
-            <p id="timer">Time: 0s</p> 
-            <div class="button-container">
-                <button id="restart-btn">🔄 Restart</button>
-                <button onclick="window.location.href='levels.html'">⬅ Back to Levels</button>
+<body class="game-page">
+    <main class="game-shell">
+        <header class="game-header nes-frame">
+            <div class="game-header__text">
+                <p class="eyebrow" id="game-eyebrow">Quest</p>
+                <h1 id="level-title">Level</h1>
             </div>
-            <p id="feedback"></p>
-        </div>
-    </header>
+            <div class="game-header__actions">
+                <div id="timer" class="hud-chip">Time: 0s</div>
+                <div id="score-chip" class="hud-chip">Score: 0</div>
+                <div class="button-container">
+                    <button id="restart-btn" class="nes-btn nes-btn--gold" type="button">Restart</button>
+                    <button class="nes-btn" type="button" onclick="window.location.href='../index.html'">Home</button>
+                </div>
+            </div>
+        </header>
 
-    <main>
-        <div id="game-container">
-            <svg id="tree-lines"></svg>
-            <div id="tree-container">
+        <section class="game-stage nes-frame">
+            <p id="instructions" class="game-instructions"></p>
+            <div id="game-container" class="game-stage__canvas">
+                <div id="traversal-indicator" class="traversal-badge"></div>
+                <svg id="tree-svg" class="tree-svg" xmlns="http://www.w3.org/2000/svg"></svg>
             </div>
-        </div>
-        
-        
+
+            <div id="choice-buttons" class="choice-buttons" hidden></div>
+            <div id="tile-bank" class="tile-bank" hidden></div>
+            <div id="speedrun-hud" class="speedrun-hud" hidden>
+                <div class="hud-chip">Round: <span id="speedrun-round">1</span></div>
+                <div class="hud-chip">Best: <span id="speedrun-best">0</span></div>
+            </div>
+
+            <p id="feedback" class="game-feedback" aria-live="polite"></p>
+        </section>
     </main>
 
-    <script src="../js/game.js"></script>
-    <script src="../js/main.js"></script>
+    <div id="footer-container"></div>
+
+    <script defer src="../js/audio.js"></script>
+    <script defer src="../js/ui.js"></script>
+    <script defer src="../js/tree.js"></script>
+    <script defer src="../js/level-config.js"></script>
+    <script defer src="../js/modes/classic.js"></script>
+    <script defer src="../js/modes/identify.js"></script>
+    <script defer src="../js/modes/build.js"></script>
+    <script defer src="../js/modes/speedrun.js"></script>
+    <script defer src="../js/game.js"></script>
+    <script defer src="../js/main.js"></script>
     <script>
         fetch('../components/footer.html')
             .then(response => response.text())
             .then(data => document.getElementById('footer-container').innerHTML = data);
     </script>
 </body>
-<div id="footer-container"></div>
-
 </html>
