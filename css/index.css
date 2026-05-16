@@ -2,7 +2,9 @@
 
 body.root-page {
     height: 100vh;
+    height: 100svh;
     height: 100dvh;
+    min-height: 100vh;
     overflow: hidden;
 }
 
@@ -42,6 +44,7 @@ body.root-page {
     aspect-ratio: 32 / 48;
     image-rendering: pixelated;
     flex: 0 0 auto;
+    display: block;
 }
 
 .title-player {
@@ -244,28 +247,33 @@ body.root-page {
 /* Wide-and-short (landscape phones, short windows): 4x1 mode tiles + horizontal player field */
 @media (max-height: 700px) and (min-aspect-ratio: 5/4) {
     .title-screen {
-        padding: 6px clamp(8px, 2vw, 18px);
-        gap: 6px;
-        justify-content: center;
+        padding: 8px clamp(8px, 2vw, 18px) 18px;
+        gap: 10px;
+        justify-content: flex-start;
     }
     .title-logo {
         max-height: clamp(28px, 8vh, 56px);
     }
     .title-mascot {
-        width: clamp(36px, 9vh, 64px);
+        display: block;
+        width: clamp(40px, 12vh, 72px);
         flex: 0 0 auto;
     }
     .title-player {
-        width: min(460px, 92%);
-        gap: 10px;
+        width: auto;
+        max-width: 100%;
+        gap: 12px;
         justify-content: center;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
     }
     .title-player__field {
         flex-direction: row;
         align-items: center;
         gap: 8px;
-        max-width: none;
-        width: 100%;
+        max-width: 260px;
+        width: 260px;
     }
     .title-player__label {
         font-size: 8px;
@@ -276,16 +284,18 @@ body.root-page {
         font-size: 10px;
         padding: 5px 8px;
         flex: 1 1 auto;
-        max-width: 280px;
+        width: 100%;
+        max-width: 220px;
     }
     .title-modes {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: auto;
         flex: 0 0 auto;
-        height: clamp(70px, 22vh, 130px);
+        height: clamp(70px, 20vh, 120px);
         gap: 6px;
         width: 100%;
         max-width: 640px;
+        margin: 0 auto;
     }
     .mode-tile {
         padding: clamp(4px, 1vh, 8px);
