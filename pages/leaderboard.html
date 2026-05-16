@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TreeQuest - Leaderboard</title>
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/levels.css">
+    <link rel="stylesheet" href="../css/leaderboard.css">
+    <link rel="stylesheet" href="../css/footer.css">
+</head>
+<body>
+    <main class="levels-shell">
+        <header class="levels-header nes-frame">
+            <div class="levels-header__text">
+                <p class="eyebrow">Hall of Fame</p>
+                <h1>Leaderboard</h1>
+                <p class="subhead" id="lb-subhead">Top scores across every mode.</p>
+            </div>
+            <div class="levels-header__actions">
+                <button class="nes-btn" type="button" onclick="window.location.href='../index.html'">Home</button>
+                <button class="nes-btn nes-btn--gold" type="button" id="lb-change-name">Change Name</button>
+            </div>
+        </header>
+
+        <section class="lb-tabs nes-frame">
+            <div class="lb-tabs__row" id="lb-tabs"></div>
+            <p class="lb-source" id="lb-source"></p>
+            <div id="lb-table" class="lb-table" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script defer src="../js/audio.js"></script>
+    <script defer src="../js/ui.js"></script>
+    <script defer src="../js/leaderboard.js"></script>
+    <script defer src="../js/leaderboard-page.js"></script>
+    <script>
+        fetch('../components/footer.html')
+            .then(r => r.text())
+            .then(d => document.getElementById('footer-container').innerHTML = d);
+    </script>
+</body>
+</html>

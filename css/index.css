@@ -37,11 +37,63 @@ body.root-page {
 }
 
 .title-mascot {
-    flex: 0 0 auto;
     width: clamp(48px, 8vh, 72px);
     height: auto;
     aspect-ratio: 32 / 48;
     image-rendering: pixelated;
+    flex: 0 0 auto;
+}
+
+.title-player {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2vw, 18px);
+    width: min(420px, 100%);
+    justify-content: center;
+}
+
+.title-player__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+    min-width: 0;
+    flex: 1 1 auto;
+    max-width: 240px;
+}
+
+.title-player__label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--c-paper-hi);
+    text-shadow: 2px 2px 0 var(--c-ink);
+    letter-spacing: 1px;
+}
+
+.title-player__input {
+    width: 100%;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    padding: 8px 10px;
+    border: 4px solid var(--c-ink);
+    background: var(--c-paper-hi);
+    color: var(--c-ink);
+    text-transform: uppercase;
+    box-sizing: border-box;
+    box-shadow:
+        inset 2px 2px 0 #FFE060,
+        inset -2px -2px 0 #B07020,
+        3px 3px 0 var(--c-ink);
+}
+
+.title-player__input::placeholder {
+    color: #A07020;
+}
+
+.title-player__input:focus {
+    outline: none;
+    background: var(--c-gold);
 }
 
 .title-modes {
@@ -114,7 +166,20 @@ body.root-page {
 }
 
 .how-to-play-link {
+    font-size: clamp(8px, 1.2vh, 11px);
+    padding: clamp(6px, 1.2vh, 12px) clamp(12px, 2vw, 20px);
+}
+
+.title-extras {
     flex: 0 0 auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#leaderboard-btn {
     font-size: clamp(8px, 1.2vh, 11px);
     padding: clamp(6px, 1.2vh, 12px) clamp(12px, 2vw, 20px);
 }

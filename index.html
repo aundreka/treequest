@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/footer.css">
     <script defer src="js/audio.js"></script>
     <script defer src="js/ui.js"></script>
+    <script defer src="js/leaderboard.js"></script>
     <script defer src="js/main.js"></script>
 </head>
 <body class="root-page">
@@ -17,7 +18,13 @@
             <img src="assets/logo.svg" alt="TreeQuest" class="title-logo__img">
         </div>
 
-        <img src="assets/mascot.svg" alt="" aria-hidden="true" class="title-mascot mascot">
+        <div class="title-player">
+            <img src="assets/mascot.svg" alt="" aria-hidden="true" class="title-mascot mascot">
+            <label class="title-player__field" for="player-name-input">
+                <span class="title-player__label">Player Name</span>
+                <input id="player-name-input" type="text" class="title-player__input" maxlength="16" placeholder="ENTER NAME" autocomplete="off" spellcheck="false">
+            </label>
+        </div>
 
         <div class="title-modes">
             <button class="mode-tile mode-tile--classic" type="button" data-mode="classic">
@@ -38,7 +45,10 @@
             </button>
         </div>
 
-        <button class="nes-btn how-to-play-link" id="how-to-play-btn" type="button">How To Play</button>
+        <div class="title-extras">
+            <button class="nes-btn nes-btn--frame" id="leaderboard-btn" type="button" onclick="window.location.href='pages/leaderboard.html'">Leaderboard</button>
+            <button class="nes-btn how-to-play-link" id="how-to-play-btn" type="button">How To Play</button>
+        </div>
 
         <p class="title-credits">2024 - TreeQuest was created as an educational tool for learning binary tree traversal.</p>
     </main>

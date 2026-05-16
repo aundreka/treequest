@@ -183,6 +183,14 @@
     background: #888888;
 }
 
+.level-card.is-current {
+    background: var(--c-gold);
+    box-shadow:
+        inset 2px 2px 0 #FFE060,
+        inset -2px -2px 0 #B07020,
+        4px 4px 0 var(--c-ink);
+}
+
 .level-card__header {
     display: flex;
     flex-direction: column;

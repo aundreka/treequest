@@ -259,6 +259,33 @@ p  { font-size: clamp(10px, 1.4vw, 12px); line-height: 1.8; }
     80% { transform: translate(2px, 0); }
 }
 
+/* Win celebration */
+.tree-node.win-celebrate rect {
+    fill: var(--c-grass-light) !important;
+    stroke-dasharray: none !important;
+    animation: tq-node-jiggle 0.55s steps(5, end);
+}
+
+.tree-node.win-celebrate text {
+    fill: var(--c-paper-hi) !important;
+    animation: tq-node-jiggle 0.55s steps(5, end);
+}
+
+@keyframes tq-node-jiggle {
+    0%   { transform: translateY(0)    scale(1); }
+    20%  { transform: translateY(-6px) scale(1.08); }
+    40%  { transform: translateY(2px)  scale(0.96); }
+    60%  { transform: translateY(-3px) scale(1.04); }
+    80%  { transform: translateY(1px)  scale(0.98); }
+    100% { transform: translateY(0)    scale(1); }
+}
+
+.tree-node rect,
+.tree-node text {
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
 .tree-node text {
     font-family: 'Press Start 2P', monospace;
     font-size: 18px;
@@ -390,6 +417,57 @@ p  { font-size: clamp(10px, 1.4vw, 12px); line-height: 1.8; }
 
 body.tq-modal-open {
     overflow: hidden;
+}
+
+/* ----- Rotate-device overlay (mobile portrait) ----- */
+.tq-rotate-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--c-frame);
+    color: var(--c-paper-hi);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 99998;
+    padding: 24px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.tq-rotate-overlay__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    max-width: 320px;
+}
+
+.tq-rotate-overlay__icon {
+    font-size: 48px;
+    line-height: 1;
+    animation: tq-rotate-pulse 1.4s steps(2, end) infinite;
+}
+
+.tq-rotate-overlay__title {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.tq-rotate-overlay__sub {
+    font-size: 9px;
+    line-height: 1.7;
+    color: var(--c-gold);
+}
+
+@keyframes tq-rotate-pulse {
+    0%, 100% { transform: rotate(0); }
+    50%      { transform: rotate(90deg); }
+}
+
+/* Show overlay only on small portrait viewports */
+@media (max-width: 900px) and (orientation: portrait) {
+    .tq-rotate-overlay { display: flex; }
+    body { overflow: hidden; }
 }
 
 @media (max-width: 480px) {

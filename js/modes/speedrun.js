@@ -59,7 +59,12 @@
                     totalScore += 25;
                     round++;
                     if (window.TQAudio) TQAudio.playSfx("win");
-                    setTimeout(nextRound, 200);
+                    svg.querySelectorAll(".tree-node").forEach((n, i) => {
+                        setTimeout(() => {
+                            n.classList.add("win-celebrate");
+                        }, i * 30);
+                    });
+                    setTimeout(nextRound, 700);
                 }
             } else {
                 group.classList.add("wrong");

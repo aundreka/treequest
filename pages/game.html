@@ -11,17 +11,21 @@
 <body class="game-page">
     <main class="game-shell">
         <header class="game-header nes-frame">
+            <div class="game-header__nav">
+                <button class="nes-btn icon-btn" type="button" onclick="window.location.href='../index.html'" aria-label="Home">
+                    <img src="../assets/icon-home.svg" alt="" class="icon-glyph">
+                </button>
+                <button id="restart-btn" class="nes-btn nes-btn--gold icon-btn" type="button" aria-label="Restart">
+                    <img src="../assets/icon-restart.png" alt="" class="icon-glyph">
+                </button>
+            </div>
             <div class="game-header__text">
                 <p class="eyebrow" id="game-eyebrow">Quest</p>
                 <h1 id="level-title">Level</h1>
             </div>
-            <div class="game-header__actions">
+            <div class="game-header__hud">
                 <div id="timer" class="hud-chip">Time: 0s</div>
                 <div id="score-chip" class="hud-chip">Score: 0</div>
-                <div class="button-container">
-                    <button id="restart-btn" class="nes-btn nes-btn--gold" type="button">Restart</button>
-                    <button class="nes-btn" type="button" onclick="window.location.href='../index.html'">Home</button>
-                </div>
             </div>
         </header>
 
@@ -47,6 +51,7 @@
 
     <script defer src="../js/audio.js"></script>
     <script defer src="../js/ui.js"></script>
+    <script defer src="../js/leaderboard.js"></script>
     <script defer src="../js/tree.js"></script>
     <script defer src="../js/level-config.js"></script>
     <script defer src="../js/modes/classic.js"></script>

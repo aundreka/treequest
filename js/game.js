@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return 1;
     })();
 
-    function saveModeBest(cfg) {
+    function saveModeBest(cfg, extra) {
         if (!cfg) return;
         if (cfg.mode === "identify" || cfg.mode === "build") {
             const stars = calculateStars();
@@ -38,13 +38,26 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             localStorage.setItem(progKey, JSON.stringify(progress));
 
-            const current = parseInt(localStorage.getItem(currentKey), 10) || 1;
-            if (cfg.id >= current) {
-                localStorage.setItem(currentKey, String(cfg.id + 1));
+            // Only advance current level when the run passed.
+            // Identify uses the explicit identifyPassed flag from the mode.
+            const passed = (cfg.mode === "identify")
+                ? !!(extra && extra.identifyPassed)
+                : true; // build advances on full completion (which only happens if all tiles correct)
+            if (passed) {
+                const current = parseInt(localStorage.getItem(currentKey), 10) || 1;
+                if (cfg.id >= current) {
+                    localStorage.setItem(currentKey, String(cfg.id + 1));
+                }
             }
 
             const prevBest = parseInt(localStorage.getItem(bestKey), 10) || 0;
             if (state.score > prevBest) localStorage.setItem(bestKey, String(state.score));
+
+            if (window.TQLeaderboard) {
+                TQLeaderboard.submit(cfg.mode, state.score);
+            }
+        } else if (cfg.mode === "classic") {
+            if (window.TQLeaderboard) TQLeaderboard.submit("classic", state.score);
         }
     }
 
@@ -187,31 +200,64 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateScoreChip();
                 if (window.TQAudio) TQAudio.playSfx("wrong");
             },
-            onComplete: () => {
+            onComplete: (extra) => {
                 if (state.completed) return;
                 state.completed = true;
                 stopTimer();
                 if (cfg) saveProgress(cfg);
-                saveModeBest(cfg);
-                if (window.TQAudio) TQAudio.playSfx("win");
+                if (window.TQLeaderboard && !TQLeaderboard.getName()) {
+                    TQLeaderboard.ensureName().then(() => saveModeBest(cfg, extra));
+                } else {
+                    saveModeBest(cfg, extra);
+                }
+
+                const isIdentify = cfg && cfg.mode === "identify";
+                const identifyFailed = isIdentify && extra && extra.identifyPassed === false;
+                if (!identifyFailed) celebrateWin();
+                if (window.TQAudio) TQAudio.playSfx(identifyFailed ? "lose" : "win");
+
                 const stars = calculateStars();
                 const star = "★".repeat(stars) + "☆".repeat(3 - stars);
-                els.feedback.innerHTML = `Level Complete! ${star} &mdash; Score ${state.score}`;
                 const next = cfg ? cfg.id + 1 : null;
                 const modeQs = cfg && cfg.mode !== "classic" ? `&mode=${cfg.mode}` : "";
+
+                let modalEyebrow, modalTitle, modalBody, primary, primaryAction;
+                if (isIdentify) {
+                    const c = extra ? extra.correctCount : 0;
+                    const t = extra ? extra.totalQuestions : 0;
+                    const pct = t ? Math.round((c / t) * 100) : 0;
+                    if (extra && extra.identifyPassed) {
+                        modalEyebrow = "Level Passed";
+                        modalTitle = `${c}/${t} Correct (${pct}%)`;
+                        modalBody = `You hit the 80% mark with <strong>${state.score} points</strong>! Next level unlocked.`;
+                        primary = "Next Level";
+                        primaryAction = () => { if (next) window.location.href = `game.html?level=${next}${modeQs}`; };
+                    } else {
+                        modalEyebrow = "Level Failed";
+                        modalTitle = `${c}/${t} Correct (${pct}%)`;
+                        modalBody = `You need <strong>80%</strong> to advance. Try this level again.`;
+                        primary = "Retry";
+                        primaryAction = () => location.reload();
+                    }
+                    els.feedback.innerHTML = modalBody;
+                } else {
+                    modalEyebrow = "Quest Complete";
+                    modalTitle = `${star}  Score ${state.score}`;
+                    modalBody = `You finished with <strong>${state.score} points</strong> and <strong>${stars} star${stars === 1 ? "" : "s"}</strong>!`;
+                    primary = "Next Level";
+                    primaryAction = () => { if (next) window.location.href = `game.html?level=${next}${modeQs}`; };
+                    els.feedback.innerHTML = `Level Complete! ${star} &mdash; Score ${state.score}`;
+                }
+
                 setTimeout(() => {
                     TQUI.showModal({
-                        eyebrow: "Quest Complete",
-                        title: `${star}  Score ${state.score}`,
-                        body: `You finished with <strong>${state.score} points</strong> and <strong>${stars} star${stars === 1 ? "" : "s"}</strong>!`,
-                        primary: "Next Level",
+                        eyebrow: modalEyebrow,
+                        title: modalTitle,
+                        body: modalBody,
+                        primary,
                         secondary: "Back to Menu",
-                        onPrimary: () => {
-                            if (next) window.location.href = `game.html?level=${next}${modeQs}`;
-                        },
-                        onSecondary: () => {
-                            window.location.href = "../index.html";
-                        }
+                        onPrimary: primaryAction,
+                        onSecondary: () => { window.location.href = "../index.html"; }
                     });
                 }, 600);
             },
@@ -226,8 +272,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function setHeader(cfg) {
-        els.eyebrow.textContent = cfg.isBoss ? "Boss Battle" : (cfg.isTutorial ? "Tutorial" : cfg.chapterName);
-        els.title.textContent = cfg.name;
+        const modeLabel = (TQLevels.MODE_LABELS[cfg.mode] || cfg.mode).toUpperCase();
+        els.eyebrow.textContent = `${modeLabel} MODE`;
+
+        let title;
+        if (cfg.isTutorial) {
+            title = `Tutorial - ${TQLevels.TRAVERSAL_LABELS[cfg.traversal]}`;
+        } else if (cfg.isBoss) {
+            title = `${cfg.chapterName} - Boss`;
+        } else if (cfg.mode === "classic") {
+            title = `${cfg.chapterName} - Level ${cfg.positionInChapter}`;
+        } else {
+            title = `Level ${cfg.id}`;
+        }
+        els.title.textContent = title;
+
         els.traversal.classList.remove("traversal-badge--hidden");
         if (cfg.mode === "identify") {
             els.traversal.textContent = "Traversal: ???";
@@ -241,6 +300,17 @@ document.addEventListener("DOMContentLoaded", () => {
     function setBodyMode(mode) {
         document.body.classList.remove("mode-classic", "mode-identify", "mode-build", "mode-speedrun");
         document.body.classList.add(`mode-${mode}`);
+    }
+
+    function celebrateWin() {
+        if (!els.svg) return;
+        const nodes = els.svg.querySelectorAll(".tree-node");
+        nodes.forEach((n, i) => {
+            setTimeout(() => {
+                n.classList.add("win-celebrate");
+                setTimeout(() => n.classList.remove("win-celebrate"), 600);
+            }, i * 40);
+        });
     }
 
     function runLevel() {
@@ -283,8 +353,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function runSpeedrun() {
         resetHUD();
         setBodyMode("speedrun");
-        els.eyebrow.textContent = "Endless";
-        els.title.textContent = "Speedrun";
+        els.eyebrow.textContent = "SPEEDRUN MODE";
+        els.title.textContent = "Endless Run";
         els.traversal.classList.remove("traversal-badge--hidden");
         els.traversal.textContent = "Traversal: varies";
 
@@ -308,6 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     els.speedrunBest.textContent = String(score);
                     unlockAchievement("Speedrun Champion");
                 }
+                if (window.TQLeaderboard) TQLeaderboard.submit("speedrun", score);
             },
             queueFeedback
         });

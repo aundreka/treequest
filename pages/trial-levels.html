@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TreeQuest - Trial Levels</title>
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/levels.css">
+    <link rel="stylesheet" href="../css/footer.css">
+</head>
+<body>
+    <main class="levels-shell">
+        <header class="levels-header nes-frame">
+            <div class="levels-header__text">
+                <p class="eyebrow" id="trial-eyebrow">Trial Mode</p>
+                <h1 id="trial-title">Levels</h1>
+                <p class="subhead" id="trial-subhead">Pass each level to unlock the next.</p>
+            </div>
+            <div class="levels-header__actions">
+                <button class="nes-btn" type="button" onclick="window.location.href='../index.html'">Home</button>
+            </div>
+        </header>
+
+        <section class="trial-levels-panel nes-frame">
+            <div class="panel-heading">
+                <h2 id="trial-levels-heading">Levels</h2>
+            </div>
+            <div id="trial-levels-container" class="chapter-levels-grid"></div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script defer src="../js/audio.js"></script>
+    <script defer src="../js/ui.js"></script>
+    <script defer src="../js/leaderboard.js"></script>
+    <script defer src="../js/level-config.js"></script>
+    <script defer src="../js/trial-levels.js"></script>
+    <script>
+        fetch('../components/footer.html')
+            .then(r => r.text())
+            .then(d => document.getElementById('footer-container').innerHTML = d);
+    </script>
+</body>
+</html>

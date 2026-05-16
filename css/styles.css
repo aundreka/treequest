@@ -49,10 +49,20 @@ body.game-page .game-stage__canvas .traversal-badge {
     font-size: clamp(10px, 1.5vw, 14px);
 }
 
-body.game-page .game-header__actions {
+body.game-page .game-header__hud {
     flex: 0 0 auto;
     gap: 6px;
     align-items: flex-end;
+}
+
+body.game-page .icon-btn {
+    width: 38px;
+    height: 38px;
+}
+
+body.game-page .icon-btn .icon-glyph {
+    width: 20px;
+    height: 20px;
 }
 
 body.game-page .hud-chip {
@@ -139,29 +149,63 @@ body.game-page #footer-container {
     body.game-page .traversal-badge { margin-top: 2px; padding: 6px 10px; }
 }
 
-/* Narrow screens: stack header */
+/* Narrow screens: stack header into rows */
 @media (max-width: 640px) {
-    body.game-page .game-header { flex-direction: column; align-items: stretch; }
-    body.game-page .game-header__actions { flex-direction: row; align-items: center; justify-content: space-between; }
-    body.game-page .hud-chip { min-width: 0; flex: 1 1 0; text-align: center; }
-    body.game-page .button-container { flex: 1 1 0; }
+    body.game-page .game-header {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+    }
+    body.game-page .game-header__text {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        text-align: left;
+    }
+    body.game-page .game-header__nav { grid-column: 1; grid-row: 1; }
+    body.game-page .game-header__hud {
+        grid-column: 2; grid-row: 1;
+        flex-direction: row;
+        align-items: center;
+    }
+    body.game-page .hud-chip { min-width: 0; font-size: 8px; padding: 5px 8px; }
 }
 
 .game-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+}
+
+.game-header__nav {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 6px;
+    flex: 0 0 auto;
+    align-self: flex-start;
+}
+
+.icon-btn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn .icon-glyph {
+    width: 24px;
+    height: 24px;
+    image-rendering: pixelated;
+    display: block;
 }
 
 .game-header__text {
-    flex: 1 1 280px;
     min-width: 0;
+    text-align: center;
 }
 
 .game-header__text h1 {
-    margin: 0 0 8px;
+    margin: 0 0 4px;
     word-wrap: break-word;
 }
 
@@ -208,11 +252,12 @@ body.game-page #footer-container {
     letter-spacing: 4px;
 }
 
-.game-header__actions {
+.game-header__hud {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     align-items: flex-end;
+    flex: 0 0 auto;
 }
 
 .hud-chip {

@@ -83,16 +83,46 @@
         currentBgm = track;
         currentBgmName = name;
         track.volume = BGM_VOLUME;
-        track.currentTime = 0;
+        // Resume from saved offset if same track was just playing on previous page
+        const savedTime = parseFloat(sessionStorage.getItem("tq_bgm_time_" + name));
+        track.currentTime = (!isNaN(savedTime) && savedTime > 0) ? savedTime : 0;
+        sessionStorage.removeItem("tq_bgm_time_" + name);
         const p = track.play();
         if (p && typeof p.catch === "function") {
             p.catch(() => {
-                // Autoplay blocked — defer until first user gesture
                 pendingBgm = name;
                 queueUnlock();
             });
         }
     }
+
+    window.addEventListener("pagehide", () => {
+        if (currentBgm && currentBgmName && !currentBgm.paused) {
+            sessionStorage.setItem("tq_bgm_time_" + currentBgmName, String(currentBgm.currentTime));
+        }
+    });
+
+    const pending = sessionStorage.getItem("tq_pending_bgm");
+    if (pending) {
+        sessionStorage.removeItem("tq_pending_bgm");
+        playBgm(pending);
+    }
+
+    // Inject a "rotate device" overlay (CSS controls when it's shown)
+    function ensureRotateOverlay() {
+        if (document.querySelector(".tq-rotate-overlay")) return;
+        const overlay = document.createElement("div");
+        overlay.className = "tq-rotate-overlay";
+        overlay.innerHTML =
+            '<div class="tq-rotate-overlay__inner">' +
+            '  <div class="tq-rotate-overlay__icon">&#9696;</div>' +
+            '  <div class="tq-rotate-overlay__title">Rotate Your Device</div>' +
+            '  <div class="tq-rotate-overlay__sub">TreeQuest plays best in landscape. Turn your phone sideways.</div>' +
+            '</div>';
+        document.body.appendChild(overlay);
+    }
+    if (document.body) ensureRotateOverlay();
+    else document.addEventListener("DOMContentLoaded", ensureRotateOverlay);
 
     function queueUnlock() {
         if (unlocked) return;

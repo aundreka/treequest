@@ -1,6 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
     if (window.TQAudio) TQAudio.playBgm("menu");
 
+    const nameInput = document.getElementById("player-name-input");
+    if (nameInput && window.TQLeaderboard) {
+        nameInput.value = TQLeaderboard.getName() || "";
+        const saveName = () => {
+            const v = (nameInput.value || "").trim();
+            if (v) {
+                const cleaned = TQLeaderboard.setName(v);
+                nameInput.value = cleaned;
+            }
+        };
+        nameInput.addEventListener("change", saveName);
+        nameInput.addEventListener("blur", saveName);
+        nameInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                saveName();
+                nameInput.blur();
+            }
+        });
+    }
+
     const htpBtn = document.getElementById("how-to-play-btn");
     if (htpBtn && window.TQUI) {
         htpBtn.addEventListener("click", () => {
@@ -41,13 +62,13 @@ document.addEventListener("DOMContentLoaded", () => {
             title: "Identify Trial",
             body: "Watch the highlight sequence move across the tree, then pick which traversal you just saw.",
             bullets: [
-                "Choose between Pre-, In-, Post-, and Level-Order.",
-                "One round per run. Beat your best score.",
-                "Wrong guess? The correct answer is revealed."
+                "Each level has 5 questions.",
+                "Score 80% (4 out of 5) to unlock the next level.",
+                "Wrong guess plays a stinger; the correct answer is revealed."
             ],
             statLabel: "Best",
             statKey: "treequest_best_identify",
-            href: "pages/game.html?mode=identify",
+            href: "pages/trial-levels.html?mode=identify",
             bgm: "identify"
         },
         build: {
@@ -57,11 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
             bullets: [
                 "Empty slots are dashed; drop tiles on them.",
                 "Wrong drops bounce back &mdash; correct drops snap in.",
-                "Place every tile to finish the round."
+                "Place every tile to clear the level."
             ],
             statLabel: "Best",
             statKey: "treequest_best_build",
-            href: "pages/game.html?mode=build",
+            href: "pages/trial-levels.html?mode=build",
             bgm: "build"
         },
         speedrun: {
@@ -128,6 +149,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (mode === "identify" || mode === "build") {
                     const current = parseInt(localStorage.getItem(`treequest_${mode}_current`), 10) || 1;
                     href = `pages/game.html?mode=${mode}&level=${current}`;
+                }
+                // Start the mode BGM as part of the user's gesture so the next page
+                // can resume it without needing another interaction.
+                if (window.TQAudio) {
+                    TQAudio.playBgm(info.bgm);
+                    sessionStorage.setItem("tq_pending_bgm", info.bgm);
                 }
                 window.location.href = href;
             }
