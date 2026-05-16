@@ -245,3 +245,109 @@ body.root-page {
     .mode-tile__icon { width: 28px; height: 28px; }
     .mode-tile__label { font-size: 9px; letter-spacing: 0.5px; }
 }
+
+/* Landscape phones / very short viewports: switch modes grid to 4x1 and shrink */
+@media (max-height: 540px) {
+    .title-screen {
+        padding: 6px clamp(8px, 2vw, 18px);
+        gap: 5px;
+    }
+    .title-logo {
+        max-height: 32px;
+    }
+    .title-mascot {
+        display: none;
+    }
+    .title-player {
+        width: min(420px, 100%);
+        gap: 8px;
+    }
+    .title-player__field {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        max-width: none;
+        width: 100%;
+    }
+    .title-player__label {
+        font-size: 8px;
+        text-shadow: 1px 1px 0 var(--c-ink);
+        white-space: nowrap;
+    }
+    .title-player__input {
+        font-size: 10px;
+        padding: 5px 8px;
+        flex: 1 1 auto;
+    }
+    .title-modes {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr;
+        flex: 1 1 auto;
+        max-height: 100%;
+        gap: 6px;
+        width: 100%;
+    }
+    .mode-tile {
+        padding: 6px;
+        gap: 4px;
+        box-shadow:
+            inset 2px 2px 0 var(--c-paper-hi),
+            inset -2px -2px 0 var(--c-paper-lo),
+            3px 3px 0 var(--c-ink);
+    }
+    .mode-tile__icon {
+        width: clamp(18px, 5vh, 32px);
+        height: clamp(18px, 5vh, 32px);
+    }
+    .mode-tile__label {
+        font-size: clamp(7px, 1.6vh, 10px);
+        letter-spacing: 0;
+    }
+    .title-extras {
+        gap: 6px;
+    }
+    .title-extras .nes-btn,
+    .how-to-play-link,
+    #leaderboard-btn {
+        font-size: 8px;
+        padding: 5px 10px;
+    }
+    .title-credits {
+        display: none;
+    }
+}
+
+/* Ultra-short (under ~400 px height) — trim further */
+@media (max-height: 400px) {
+    .title-screen {
+        padding: 4px 8px;
+        gap: 3px;
+    }
+    .title-logo {
+        max-height: 24px;
+    }
+    .title-player__label {
+        display: none;
+    }
+    .title-player__input {
+        font-size: 9px;
+        padding: 4px 6px;
+    }
+    .mode-tile {
+        padding: 4px;
+        gap: 2px;
+    }
+    .mode-tile__icon {
+        width: 18px;
+        height: 18px;
+    }
+    .mode-tile__label {
+        font-size: 7px;
+    }
+    .title-extras .nes-btn,
+    .how-to-play-link,
+    #leaderboard-btn {
+        font-size: 7px;
+        padding: 4px 8px;
+    }
+}
