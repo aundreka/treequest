@@ -251,9 +251,9 @@ body.root-page {
 /* Wide-and-short (landscape phones, short windows): 4x1 mode tiles + horizontal player field */
 @media (max-height: 700px) and (min-aspect-ratio: 5/4) {
     .title-screen {
-        padding: 8px clamp(8px, 2vw, 18px) 18px;
-        gap: 10px;
-        justify-content: flex-start;
+        padding: 10px clamp(8px, 2vw, 18px) 14px;
+        gap: 12px;
+        justify-content: center;
     }
     .title-logo {
         max-height: clamp(28px, 8vh, 56px);
@@ -318,7 +318,8 @@ body.root-page {
         letter-spacing: 0;
     }
     .title-extras {
-        gap: 8px;
+        gap: 10px;
+        margin-top: clamp(8px, 2vh, 16px);
     }
     .title-extras .nes-btn,
     .how-to-play-link,
